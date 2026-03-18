@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Te Cielo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500&family=Great+Vibes&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rosa-principal: #FF69B4;
+            --rosa-claro: #FFB6D9;
+            --rosa-suave: #FFF0F7;
+            --blanco: #FFFFFF;
+            --rosa-oscuro: #D84A8F;
+            --gris-texto: #4A4A4A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: url(images/image_1.jpg) no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            color: var(--gris-texto);
+        }
+
+        /* Estilos del carrusel */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: zoom-in;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--rosa-principal);
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-btn:hover {
+            background: var(--rosa-principal);
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-btn.prev {
+            left: 10px;
+        }
+
+        .carousel-btn.next {
+            right: 10px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: white;
+            width: 25px;
+            border-radius: 5px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px 25px;
+            animation: fadeInDown 1s ease;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 2px 15px rgba(255, 105, 180, 0.08);
+            display: inline-block;
+            margin: 20px auto;
+            border-radius: 15px;
+            width: auto;
+            min-width: 300px;
+        }
+
+        h1 {
+            font-family: 'Tangerine', cursive;
+            font-size: 7rem;
+            font-weight: 700;
+            color: var(--rosa-principal);
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+            line-height: 1;
+        }
+
+        .subtitle {
+            font-size: 0.75rem;
+            color: var(--gris-texto);
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .header-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            color: var(--rosa-principal);
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.4);
+        }
+
+        .social-icon.instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: white;
+        }
+
+        .social-icon.whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .social-icon.instagram:hover,
+        .social-icon.whatsapp:hover {
+            filter: brightness(1.1);
+        }
+
+        .header-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.15);
+            transition: all 0.4s ease;
+            animation: cardAppear 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.25);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--rosa-oscuro);
+            margin-bottom: 12px;
+        }
+
+        .product-description {
+            color: var(--gris-texto);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            color: var(--rosa-principal);
+            font-weight: 600;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-personalizar {
+            width: 100%;
+            padding: 15px;
+            background: var(--rosa-principal);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-personalizar:hover {
+            background: var(--rosa-oscuro);
+            transform: scale(1.02);
+        }
+
+        /* Popup Personalizador */
+        .personalizador-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .personalizador-content {
+            background: white;
+            margin: 50px auto;
+            padding: 0;
+            max-width: 800px;
+            border-radius: 20px;
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .personalizador-header {
+            position: relative;
+            padding: 0;
+        }
+
+        .personalizador-carousel {
+            height: 300px;
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+        }
+
+        .close-personalizador {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .close-personalizador:hover {
+            background: var(--rosa-principal);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .personalizador-body {
+            padding: 30px;
+        }
+
+        .personalizador-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--rosa-principal);
+            margin-bottom: 15px;
+        }
+
+        .precio-info {
+            background: var(--rosa-suave);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .precio-info h4 {
+            color: var(--rosa-oscuro);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .precio-info ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .precio-info li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 105, 180, 0.2);
+        }
+
+        .precio-info li:last-child {
+            border-bottom: none;
+        }
+
+        .precio-destacado {
+            color: var(--rosa-principal);
+            font-weight: 600;
+        }
+
+        .selector-group {
+            margin-bottom: 25px;
+        }
+
+        .selector-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--rosa-oscuro);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .selector-group input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--rosa-claro);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .selector-group input[type="number"]:focus {
+            outline: none;
+            border-color: var(--rosa-principal);
+        }
+
+        .accesorios-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .accesorio-item {
+            background: var(--rosa-suave);
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .accesorio-item:hover {
+            border-color: var(--rosa-claro);
+        }
+
+        .accesorio-item label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+
+        .ver-imagen {
+            cursor: pointer;
+            margin-left: 5px;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .ver-imagen:hover {
+            opacity: 1;
+            transform: scale(1.2);
+            filter: brightness(1.3);
+        }
+
+        .accesorio-item input[type="number"] {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid var(--rosa-claro);
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .accesorios-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        }
+
+        .total-section {
+            background: white;
+            color: var(--rosa-principal);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 30px;
+            border: 3px solid var(--rosa-principal);
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.2);
+        }
+
+        .total-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--rosa-principal);
+            font-weight: 600;
+        }
+
+        .total-precio {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            color: var(--rosa-principal);
+        }
+
+        .btn-lo-quiero {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--rosa-principal), var(--rosa-oscuro));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .btn-lo-quiero:hover {
+            background: linear-gradient(135deg, var(--rosa-oscuro), var(--rosa-principal));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        /* Modal de Confirmación */
+        .modal-confirmacion {
+            display: none;
+            position: fixed;
+            z-index: 10002;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .confirmacion-content {
+            background: white;
+            margin: 50px auto;
+            padding: 40px;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-confirmacion {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 35px;
+            font-weight: bold;
+            color: var(--gris-texto);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-confirmacion:hover {
+            color: var(--rosa-principal);
+        }
+
+        .confirmacion-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .confirmacion-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--rosa-principal);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .confirmacion-instrucciones {
+            background: var(--rosa-suave);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .confirmacion-instrucciones p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--gris-texto);
+            margin-bottom: 15px;
+        }
+
+        .botones-contacto {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .btn-contacto {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+        }
+
+        .btn-contacto:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .detalle-pedido {
+            background: white;
+            border: 2px solid var(--rosa-claro);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .detalle-pedido h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--rosa-oscuro);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .detalle-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--rosa-suave);
+        }
+
+        .detalle-item:last-child {
+            border-bottom: none;
+        }
+
+        .detalle-label {
+            font-weight: 500;
+            color: var(--gris-texto);
+        }
+
+        .detalle-valor {
+            font-weight: 600;
+            color: var(--rosa-principal);
+        }
+
+        .detalle-total {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid var(--rosa-principal);
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+        }
+
+        .detalle-total .detalle-label {
+            color: var(--rosa-oscuro);
+            font-weight: 700;
+        }
+
+        .detalle-total .detalle-valor {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .personalizador-content {
+                margin: 20px;
+                max-width: calc(100% - 40px);
+            }
+
+            .accesorios-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Modal de zoom */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: zoomIn 0.3s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--rosa-claro);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 4rem;
+            }
+
+            .subtitle {
+                font-size: 0.65rem;
+            }
+
+            .header-social {
+                gap: 10px;
+            }
+
+            .social-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1.1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Modal de Galería de Accesorios */
+        .modal-galeria {
+            display: none;
+            position: fixed;
+            z-index: 10001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-galeria-content {
+            position: relative;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .close-galeria {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10002;
+        }
+
+        .close-galeria:hover {
+            color: var(--rosa-principal);
+        }
+
+        .galeria-carousel {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            border-radius: 15px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .galeria-track {
+            display: flex;
+            transition: transform 0.3s ease;
+            height: 100%;
+            align-items: center;
+        }
+
+        .galeria-track img {
+            width: 100%;
+            height: 100%;
+            flex-shrink: 0;
+            border-radius: 15px;
+            object-fit: contain;
+            background: #000;
+        }
+
+        @media (max-width: 768px) {
+            .galeria-carousel {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-wrapper">
+        <header>
+            <h1>Te Cielo</h1>
+            <p class="subtitle">Tienda de regalos</p>
+            <div class="header-social">
+                <a href="https://www.instagram.com/tecielo.rosaseternas/" target="_blank" class="social-icon instagram" title="Síguenos en Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+                <a href="https://wa.me/56940613614" target="_blank" class="social-icon whatsapp" title="Contáctanos por WhatsApp">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                    </svg>
+                </a>
+            </div>
+        </header>
+    </div>
+
+    <div class="container">
+        <div class="products-grid">
+            <!-- Producto 1: Cuadro Spotify -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="1">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/cuadro-spotify-1.jpg" alt="Cuadro Spotify">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/cuadro-spotify-2.jpg" alt="Cuadro Spotify">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/cuadro-spotify-3.jpg" alt="Cuadro Spotify">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(1, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(1, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(1, 0)"></span>
+                        <span class="dot" onclick="goToSlide(1, 1)"></span>
+                        <span class="dot" onclick="goToSlide(1, 2)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Cuadro Spotify</h3>
+                    <p class="product-description">Cuadro personalizado con tu canción favorita en formato Spotify. Un regalo perfecto para recordar ese momento especial.</p>
+                    <p class="product-price">$25.000</p>
+                </div>
+            </div>
+
+            <!-- Producto 2: Arreglo Love -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="2">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/arreglo-love-1.jpg" alt="Arreglo Love">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/arreglo-love-2.jpg" alt="Arreglo Love">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/arreglo-love-3.jpg" alt="Arreglo Love">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(2, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(2, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(2, 0)"></span>
+                        <span class="dot" onclick="goToSlide(2, 1)"></span>
+                        <span class="dot" onclick="goToSlide(2, 2)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Arreglo Love</h3>
+                    <p class="product-description">Hermosos globos burbuja transparentes con peluches y detalles románticos adentro. Perfectos para expresar tu amor.</p>
+                    <p class="product-price">$22.000</p>
+                </div>
+            </div>
+
+            
+            <!-- Producto 3: Ramo de Globos Corazón -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="3">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/ramo-globos.jpg" alt="Ramo de Globos">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_8.jpg" alt="Ramo de Globos">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_9.jpg" alt="Ramo de Globos">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(3, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(3, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(3, 0)"></span>
+                        <span class="dot" onclick="goToSlide(3, 1)"></span>
+                        <span class="dot" onclick="goToSlide(3, 2)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ramo de Globos Corazón</h3>
+                    <p class="product-description">Hermoso ramo con globo corazón personalizable y rosas eternas. El regalo perfecto para expresar tus sentimientos de una manera única y especial.</p>
+                    <p class="product-price">$10.000</p>
+                </div>
+            </div>
+
+
+            <!-- Producto 4: Ramo Gucci -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="4">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/image_10.jpg" alt="Ramo Gucci">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_11.jpg" alt="Ramo Gucci">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_12.jpg" alt="Ramo Gucci">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(4, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(4, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(4, 0)"></span>
+                        <span class="dot" onclick="goToSlide(4, 1)"></span>
+                        <span class="dot" onclick="goToSlide(4, 2)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ramo Gucci</h3>
+                    <p class="product-description">Elegante ramo de 15 rosas eternas con empaque estilo Gucci. Lujo y sofisticación en cada detalle para ocasiones especiales.</p>
+                    <p class="product-price">$23.000</p>
+                </div>
+            </div>
+
+
+            <!-- Producto 5: Ramo Dior Rosa -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="5">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/image_13.jpg" alt="Ramo Dior Rosa">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_14.jpg" alt="Ramo Dior Rosa">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_15.jpg" alt="Ramo Dior Rosa">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(5, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(5, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(5, 0)"></span>
+                        <span class="dot" onclick="goToSlide(5, 1)"></span>
+                        <span class="dot" onclick="goToSlide(5, 2)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ramo Dior Rosa</h3>
+                    <p class="product-description">Exclusivo ramo de 25 rosas eternas en tonos rosa con presentación estilo Dior. Elegancia y distinción para momentos únicos.</p>
+                    <p class="product-price">$34.000</p>
+                </div>
+            </div>
+
+
+            <!-- Producto 6: Ramo Dior Cherry -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="6">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/image_16.jpg" alt="Ramo Dior Cherry">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_17.jpg" alt="Ramo Dior Cherry">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_18.jpg" alt="Ramo Dior Cherry">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(6, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(6, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(6, 0)"></span>
+                        <span class="dot" onclick="goToSlide(6, 1)"></span>
+                        <span class="dot" onclick="goToSlide(6, 2)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ramo Dior Cherry</h3>
+                    <p class="product-description">Hermoso ramo de 20 rosas eternas en tonos cherry con presentación Dior. Perfecta combinación de color y elegancia.</p>
+                    <p class="product-price">$25.000</p>
+                </div>
+            </div>
+
+
+            <!-- Producto 7: Ramo Chanel -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="7">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/image_19.jpg" alt="Ramo Chanel">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_20.jpg" alt="Ramo Chanel">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_21.jpg" alt="Ramo Chanel">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(7, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(7, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(7, 0)"></span>
+                        <span class="dot" onclick="goToSlide(7, 1)"></span>
+                        <span class="dot" onclick="goToSlide(7, 2)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ramo Chanel</h3>
+                    <p class="product-description">Exclusivo ramo de 12 rosas eternas con estilo Chanel. Sofisticación y clase en cada detalle para regalar momentos inolvidables.</p>
+                    <p class="product-price">$18.000</p>
+                </div>
+            </div>
+
+
+            <!-- Producto 8: Ramo Princesa -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="8">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/image_22.jpg" alt="Ramo Princesa">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_23.jpg" alt="Ramo Princesa">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_24.jpg" alt="Ramo Princesa">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(8, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(8, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(8, 0)"></span>
+                        <span class="dot" onclick="goToSlide(8, 1)"></span>
+                        <span class="dot" onclick="goToSlide(8, 2)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ramo Princesa</h3>
+                    <p class="product-description">Delicado ramo de 20 rosas eternas en tonos suaves. Un toque de ternura y elegancia perfecta para princesas.</p>
+                    <p class="product-price">$30.000</p>
+                </div>
+            </div>
+
+            <!-- Producto 9: Ramo Cupido -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="9">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/image_25.jpg" alt="Ramo Cupido">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_26.jpg" alt="Ramo Cupido">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_27.jpg" alt="Ramo Cupido">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(9, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(9, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(9, 0)"></span>
+                        <span class="dot" onclick="goToSlide(9, 1)"></span>
+                        <span class="dot" onclick="goToSlide(9, 2)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ramo Cupido</h3>
+                    <p class="product-description">Ramo romántico de 25 rosas eternas inspirado en el amor. Perfecto para celebrar momentos especiales con pasión.</p>
+                    <p class="product-price">$32.000</p>
+                </div>
+            </div>
+
+            <!-- Producto 10: Ramo Cielo -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="10">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/image_28.jpg" alt="Ramo Cielo">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_29.jpg" alt="Ramo Cielo">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_30.jpg" alt="Ramo Cielo">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(10, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(10, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(10, 0)"></span>
+                        <span class="dot" onclick="goToSlide(10, 1)"></span>
+                        <span class="dot" onclick="goToSlide(10, 2)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ramo Cielo</h3>
+                    <p class="product-description">Ramo celestial de 16 rosas eternas que evocan la belleza del cielo. Pureza y serenidad en cada pétalo.</p>
+                    <p class="product-price">$24.000</p>
+                </div>
+            </div>
+
+            <!-- Producto 11: Ramo Ángel -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="11">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/image_31.jpg" alt="Ramo Ángel">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_32.jpg" alt="Ramo Ángel">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_33.jpg" alt="Ramo Ángel">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(11, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(11, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(11, 0)"></span>
+                        <span class="dot" onclick="goToSlide(11, 1)"></span>
+                        <span class="dot" onclick="goToSlide(11, 2)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ramo Ángel</h3>
+                    <p class="product-description">Ramo angelical de 12 rosas eternas blancas y detalles celestiales. Inocencia y gracia en un arreglo divino.</p>
+                    <p class="product-price">$22.000</p>
+                </div>
+            </div>
+
+            <!-- Producto 12: Ramo Stitch -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="12">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/image_34.jpg" alt="Ramo Stitch">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_35.jpg" alt="Ramo Stitch">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(12, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(12, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(12, 0)"></span>
+                        <span class="dot" onclick="goToSlide(12, 1)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ramo Stitch</h3>
+                    <p class="product-description">Adorable ramo de 12 rosas eternas temático de Stitch. Diversión y ternura para los fans de este personaje entrañable.</p>
+                    <p class="product-price">$22.000</p>
+                </div>
+            </div>
+
+<!-- Producto 13: Ramos Personalizados -->
+            <div class="product-card">
+                <div class="carousel-container" data-carousel="13">
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="images/image_44.jpg" alt="Ramo Personalizado">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_43.jpg" alt="Ramo Personalizado">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/image_39.jpg" alt="Ramo Personalizado">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(13, -1)">‹</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(13, 1)">›</button>
+                    <div class="carousel-dots">
+                        <span class="dot active" onclick="goToSlide(13, 0)"></span>
+                        <span class="dot" onclick="goToSlide(13, 1)"></span>
+                        <span class="dot" onclick="goToSlide(13, 2)"></span>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ramos Personalizados</h3>
+                    <p class="product-description">Rosas eternas que duran para siempre, elige tus colores favoritos y crea un regalo único y personalizado.</p>
+                    <button class="btn-personalizar" onclick="openPersonalizador()">Personalizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para zoom de imágenes -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <!-- Popup Personalizador de Rosas -->
+    <div id="personalizadorModal" class="personalizador-modal">
+        <div class="personalizador-content">
+            <div class="personalizador-header">
+                <div class="personalizador-carousel">
+                    <div class="carousel-container" data-carousel="personalizador">
+                        <div class="carousel-track">
+                            <div class="carousel-slide">
+                                <img src="images/image_39.jpg" alt="Ramo personalizado 1">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/image_40.jpg" alt="Ramo personalizado 2">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/image_41.jpg" alt="Ramo personalizado 3">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/image_42.jpg" alt="Ramo personalizado 4">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/image_43.jpg" alt="Ramo personalizado 5">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/image_44.jpg" alt="Ramo personalizado 6">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/image_45.jpg" alt="Ramo personalizado 7">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/image_46.jpg" alt="Ramo personalizado 8">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/image_47.jpg" alt="Ramo personalizado 9">
+                            </div>
+                        </div>
+                        <button class="carousel-btn prev" onclick="moveCarouselPersonalizador(-1)">‹</button>
+                        <button class="carousel-btn next" onclick="moveCarouselPersonalizador(1)">›</button>
+                        <div class="carousel-dots">
+                            <span class="dot active" onclick="goToSlidePersonalizador(0)"></span>
+                            <span class="dot" onclick="goToSlidePersonalizador(1)"></span>
+                            <span class="dot" onclick="goToSlidePersonalizador(2)"></span>
+                            <span class="dot" onclick="goToSlidePersonalizador(3)"></span>
+                            <span class="dot" onclick="goToSlidePersonalizador(4)"></span>
+                            <span class="dot" onclick="goToSlidePersonalizador(5)"></span>
+                            <span class="dot" onclick="goToSlidePersonalizador(6)"></span>
+                            <span class="dot" onclick="goToSlidePersonalizador(7)"></span>
+                            <span class="dot" onclick="goToSlidePersonalizador(8)"></span>
+                        </div>
+                    </div>
+                </div>
+                <span class="close-personalizador" onclick="closePersonalizador()">&times;</span>
+            </div>
+            
+            <div class="personalizador-body">
+                <h2 class="personalizador-title">Ramos Personalizados</h2>
+                
+                <div class="precio-info">
+                    <h4>🌹 Precios de Rosas Eternas:</h4>
+                    <ul>
+                        <li>1-19 rosas: <span class="precio-destacado">$1.200</span> c/u</li>
+                        <li>20 o más rosas: <span class="precio-destacado">$1.000</span> c/u</li>
+                    </ul>
+                </div>
+
+                <div class="selector-group">
+                    <label for="cantidadRosas">🌹 Cantidad de Rosas:</label>
+                    <input type="number" id="cantidadRosas" min="1" value="12" onchange="calcularTotal()">
+                </div>
+
+                <div class="selector-group">
+                    <label>✨ Accesorios Disponibles:</label>
+                    <div class="accesorios-grid">
+                        <div class="accesorio-item">
+                            <label for="tiaraGrande">Tiara Grande ($10.000) <span class="ver-imagen" onclick="mostrarImagenAccesorio('tiara-grande')" title="Ver imágenes">🖼️</span></label>
+                            <input type="number" id="tiaraGrande" min="0" value="0" onchange="calcularTotal()">
+                        </div>
+                        <div class="accesorio-item">
+                            <label for="coronaMediana">Corona Mediana ($4.000) <span class="ver-imagen" onclick="mostrarImagenAccesorio('corona-mediana')" title="Ver imágenes">🖼️</span></label>
+                            <input type="number" id="coronaMediana" min="0" value="0" onchange="calcularTotal()">
+                        </div>
+                        <div class="accesorio-item">
+                            <label for="coronaPequena">Corona Pequeña ($2.000) <span class="ver-imagen" onclick="mostrarImagenAccesorio('corona-pequena')" title="Ver imagen">🖼️</span></label>
+                            <input type="number" id="coronaPequena" min="0" value="0" onchange="calcularTotal()">
+                        </div>
+                        <div class="accesorio-item">
+                            <label for="tiaraPequena">Tiara Pequeña ($2.000) <span class="ver-imagen" onclick="mostrarImagenAccesorio('tiara-pequena')" title="Ver imagen">🖼️</span></label>
+                            <input type="number" id="tiaraPequena" min="0" value="0" onchange="calcularTotal()">
+                        </div>
+                        <div class="accesorio-item">
+                            <label for="mariposas">Mariposas ($500 c/u) <span class="ver-imagen" onclick="mostrarImagenAccesorio('mariposas')" title="Ver imagen">🖼️</span></label>
+                            <input type="number" id="mariposas" min="0" value="0" onchange="calcularTotal()">
+                        </div>
+                        <div class="accesorio-item">
+                            <label for="lucesLed">Luces LED ($1.000)</label>
+                            <input type="number" id="lucesLed" min="0" value="0" onchange="calcularTotal()">
+                        </div>
+                        <div class="accesorio-item">
+                            <label for="mensajeCinta">Mensaje en Cinta ($4.000) <span class="ver-imagen" onclick="mostrarImagenAccesorio('mensaje')" title="Ver imagen">🖼️</span></label>
+                            <input type="number" id="mensajeCinta" min="0" value="0" onchange="calcularTotal()">
+                        </div>
+                        <div class="accesorio-item">
+                            <label for="pelucheMediano">Peluche Mediano ($10.000) <span class="ver-imagen" onclick="mostrarImagenAccesorio('peluche-mediano')" title="Ver imágenes">🖼️</span></label>
+                            <input type="number" id="pelucheMediano" min="0" value="0" onchange="calcularTotal()">
+                        </div>
+                        <div class="accesorio-item">
+                            <label for="peluchePequeno">Peluche Pequeño ($5.000) <span class="ver-imagen" onclick="mostrarImagenAccesorio('peluche-pequeno')" title="Ver imagen">🖼️</span></label>
+                            <input type="number" id="peluchePequeno" min="0" value="0" onchange="calcularTotal()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="total-section">
+                    <h3>Tu ramo costaría:</h3>
+                    <div class="total-precio" id="totalPrecio">$14.400</div>
+                    <button class="btn-lo-quiero" onclick="mostrarConfirmacion()">¡Lo quiero!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal de Galería de Accesorios -->
+    <div id="accesorioGaleriaModal" class="modal-galeria" style="display: none;" onclick="cerrarGaleriaAccesorio()">
+        <div class="modal-galeria-content" onclick="event.stopPropagation()">
+            <span class="close-galeria" onclick="cerrarGaleriaAccesorio()">&times;</span>
+            <div class="galeria-carousel">
+                <div class="galeria-track" id="galeriaTrack"></div>
+                <button class="carousel-btn prev" onclick="moveGaleriaAccesorio(-1)">‹</button>
+                <button class="carousel-btn next" onclick="moveGaleriaAccesorio(1)">›</button>
+                <div class="carousel-dots" id="galeriaDots"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal de Galería de Accesorios -->
+    <div id="accesorioGaleriaModal" class="modal-galeria" onclick="cerrarGaleriaAccesorio()">
+        <div class="modal-galeria-content" onclick="event.stopPropagation()">
+            <span class="close-galeria" onclick="cerrarGaleriaAccesorio()">&times;</span>
+            <div class="galeria-carousel">
+                <div class="galeria-track" id="galeriaTrack"></div>
+                <button class="carousel-btn prev" onclick="moveGaleriaAccesorio(-1)" style="display:none;" id="galeriaPrev">‹</button>
+                <button class="carousel-btn next" onclick="moveGaleriaAccesorio(1)" style="display:none;" id="galeriaNext">›</button>
+                <div class="carousel-dots" id="galeriaDots"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación de Pedido -->
+    <div id="confirmacionModal" class="modal-confirmacion">
+        <div class="confirmacion-content">
+            <span class="close-confirmacion" onclick="cerrarConfirmacion()">&times;</span>
+            
+            <div class="confirmacion-header">
+                <h2>¡Perfecto! 🌹</h2>
+            </div>
+
+            <div class="confirmacion-instrucciones">
+                <p><strong>Para agendar tu pedido:</strong></p>
+                <p>Envía este detalle o un pantallazo de esta información a nuestro Instagram o WhatsApp</p>
+                
+                <div class="botones-contacto">
+                    <a href="https://www.instagram.com/tecielo.rosaseternas/" target="_blank" class="btn-contacto btn-instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                        Instagram
+                    </a>
+                    <a href="https://wa.me/56940613614" target="_blank" class="btn-contacto btn-whatsapp">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                        </svg>
+                        WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="detalle-pedido">
+                <h3>Detalle de tu Pedido</h3>
+                <div id="detalleContenido">
+                    <!-- El detalle se genera dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de carrusel
+        const carousels = {};
+        
+        function initCarousel(id) {
+            const track = document.querySelector(`[data-carousel="${id}"] .carousel-track`);
+            const dots = document.querySelectorAll(`[data-carousel="${id}"] .dot`);
+            const slides = document.querySelectorAll(`[data-carousel="${id}"] .carousel-slide`);
+            
+            carousels[id] = {
+                currentSlide: 0,
+                track: track,
+                dots: dots,
+                totalSlides: slides.length, // Detectar automáticamente el número de slides
+                autoPlayInterval: null
+            };
+            
+            // Solo iniciar autoplay si hay más de 1 slide
+            if (slides.length > 1) {
+                startAutoPlay(id);
+            }
+        }
+
+        function moveCarousel(id, direction) {
+            const carousel = carousels[id];
+            carousel.currentSlide += direction;
+            
+            if (carousel.currentSlide < 0) {
+                carousel.currentSlide = carousel.totalSlides - 1;
+            } else if (carousel.currentSlide >= carousel.totalSlides) {
+                carousel.currentSlide = 0;
+            }
+            
+            updateCarousel(id);
+            resetAutoPlay(id);
+        }
+
+        function goToSlide(id, slideIndex) {
+            carousels[id].currentSlide = slideIndex;
+            updateCarousel(id);
+            resetAutoPlay(id);
+        }
+
+        function updateCarousel(id) {
+            const carousel = carousels[id];
+            const offset = -carousel.currentSlide * 100;
+            carousel.track.style.transform = `translateX(${offset}%)`;
+            
+            carousel.dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === carousel.currentSlide);
+            });
+        }
+
+        function startAutoPlay(id) {
+            carousels[id].autoPlayInterval = setInterval(() => {
+                moveCarousel(id, 1);
+            }, 4000);
+        }
+
+        function resetAutoPlay(id) {
+            clearInterval(carousels[id].autoPlayInterval);
+            startAutoPlay(id);
+        }
+
+        // Pausar autoplay al hacer hover
+        document.querySelectorAll('.carousel-container').forEach((container) => {
+            const carouselId = container.getAttribute('data-carousel');
+            if (carouselId && carouselId !== 'personalizador') {
+                const id = parseInt(carouselId);
+                container.addEventListener('mouseenter', () => {
+                    if (carousels[id]) {
+                        clearInterval(carousels[id].autoPlayInterval);
+                    }
+                });
+                container.addEventListener('mouseleave', () => {
+                    if (carousels[id]) {
+                        startAutoPlay(id);
+                    }
+                });
+            }
+        });
+
+        // Inicializar todos los carruseles (13 productos)
+        for (let i = 1; i <= 13; i++) {
+            initCarousel(i);
+        }
+
+        // Sistema de zoom de imágenes
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+
+        document.querySelectorAll('.carousel-slide img').forEach(img => {
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                modal.style.display = 'block';
+                modalImg.src = this.src;
+            });
+        });
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Cerrar modal con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                closePersonalizador();
+            }
+        });
+
+        // Sistema del Personalizador
+        let personalizadorCarousel = {
+            currentSlide: 0,
+            totalSlides: 9
+        };
+
+        function openPersonalizador() {
+            document.getElementById('personalizadorModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            calcularTotal();
+            // Resetear carrusel al abrir
+            personalizadorCarousel.currentSlide = 0;
+            updateCarouselPersonalizador();
+        }
+
+        function closePersonalizador() {
+            document.getElementById('personalizadorModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function moveCarouselPersonalizador(direction) {
+            const carousel = personalizadorCarousel;
+            carousel.currentSlide += direction;
+            
+            if (carousel.currentSlide < 0) {
+                carousel.currentSlide = carousel.totalSlides - 1;
+            } else if (carousel.currentSlide >= carousel.totalSlides) {
+                carousel.currentSlide = 0;
+            }
+            
+            updateCarouselPersonalizador();
+        }
+
+        function goToSlidePersonalizador(slideIndex) {
+            personalizadorCarousel.currentSlide = slideIndex;
+            updateCarouselPersonalizador();
+        }
+
+        function updateCarouselPersonalizador() {
+            const track = document.querySelector('[data-carousel="personalizador"] .carousel-track');
+            const dots = document.querySelectorAll('[data-carousel="personalizador"] .dot');
+            
+            if (track && dots) {
+                const offset = -personalizadorCarousel.currentSlide * 100;
+                track.style.transform = `translateX(${offset}%)`;
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === personalizadorCarousel.currentSlide);
+                });
+            }
+        }
+
+
+        const accesoriosImagenes = {
+  'tiara-grande': ['images/image_48.jpg','images/image_49.jpg','images/image_50.jpg'],
+  'corona-mediana': ['images/image_51.jpg','images/image_52.jpg'],
+  'corona-pequena': ['images/image_53.jpg'],
+  'tiara-pequena': ['images/image_54.jpg'],
+  'mariposas': ['images/image_55.png'],
+  'mensaje': ['images/image_56.jpg'],
+  'peluche-mediano': ['images/image_57.jpg','images/image_58.jpg','images/image_59.jpg','images/image_60.jpg','images/image_61.jpg','images/image_62.jpg'],
+  'peluche-pequeno': ['images/image_63.jpg']
+};
+
+
+        let galeriaState = { currentSlide: 0, totalSlides: 0 };
+
+        function mostrarImagenAccesorio(tipo) {
+            const modal = document.getElementById('accesorioGaleriaModal');
+            const track = document.getElementById('galeriaTrack');
+            const dots = document.getElementById('galeriaDots');
+            const prevBtn = document.getElementById('galeriaPrev');
+            const nextBtn = document.getElementById('galeriaNext');
+            
+            const imagenes = accesoriosImagenes[tipo];
+            if (!imagenes || imagenes.length === 0) {
+                alert('No hay imágenes disponibles para este accesorio');
+                return;
+            }
+            
+            galeriaState.totalSlides = imagenes.length;
+            galeriaState.currentSlide = 0;
+            
+            // Limpiar track
+            track.innerHTML = '';
+            dots.innerHTML = '';
+            
+            // Agregar imágenes
+            imagenes.forEach((img, index) => {
+                const imgElement = document.createElement('img');
+                imgElement.src = img;
+                imgElement.alt = tipo;
+                track.appendChild(imgElement);
+                
+                // Agregar dot
+                const dot = document.createElement('span');
+                dot.className = 'dot' + (index === 0 ? ' active' : '');
+                dot.onclick = () => goToGaleriaSlide(index);
+                dots.appendChild(dot);
+            });
+            
+            // Mostrar/ocultar botones según cantidad de imágenes
+            if (imagenes.length > 1) {
+                prevBtn.style.display = 'block';
+                nextBtn.style.display = 'block';
+            } else {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            }
+            
+            modal.style.display = 'block';
+        }
+
+        function cerrarGaleriaAccesorio() {
+            document.getElementById('accesorioGaleriaModal').style.display = 'none';
+        }
+
+        function moveGaleriaAccesorio(direction) {
+            galeriaState.currentSlide += direction;
+            
+            if (galeriaState.currentSlide < 0) {
+                galeriaState.currentSlide = galeriaState.totalSlides - 1;
+            } else if (galeriaState.currentSlide >= galeriaState.totalSlides) {
+                galeriaState.currentSlide = 0;
+            }
+            
+            updateGaleriaCarousel();
+        }
+
+        function goToGaleriaSlide(index) {
+            galeriaState.currentSlide = index;
+            updateGaleriaCarousel();
+        }
+
+        function updateGaleriaCarousel() {
+            const track = document.getElementById('galeriaTrack');
+            const dots = document.querySelectorAll('#galeriaDots .dot');
+            
+            const offset = -galeriaState.currentSlide * 100;
+            track.style.transform = `translateX(${offset}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === galeriaState.currentSlide);
+            });
+        }
+
+        // Cerrar con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                cerrarGaleriaAccesorio();
+            }
+        });
+
+        function calcularTotal() {
+            const cantidadRosas = parseInt(document.getElementById('cantidadRosas').value) || 0;
+            const tiaraGrande = parseInt(document.getElementById('tiaraGrande').value) || 0;
+            const coronaMediana = parseInt(document.getElementById('coronaMediana').value) || 0;
+            const coronaPequena = parseInt(document.getElementById('coronaPequena').value) || 0;
+            const tiaraPequena = parseInt(document.getElementById('tiaraPequena').value) || 0;
+            const mariposas = parseInt(document.getElementById('mariposas').value) || 0;
+            const lucesLed = parseInt(document.getElementById('lucesLed').value) || 0;
+            const mensajeCinta = parseInt(document.getElementById('mensajeCinta').value) || 0;
+            const pelucheMediano = parseInt(document.getElementById('pelucheMediano').value) || 0;
+            const peluchePequeno = parseInt(document.getElementById('peluchePequeno').value) || 0;
+
+            // Calcular precio de rosas según cantidad
+            let precioRosas;
+            if (cantidadRosas < 20) {
+                precioRosas = cantidadRosas * 1200;
+            } else {
+                precioRosas = cantidadRosas * 1000;
+            }
+
+            // Calcular accesorios
+            const precioTiaraGrande = tiaraGrande * 10000;
+            const precioCoronaMediana = coronaMediana * 4000;
+            const precioCoronaPequena = coronaPequena * 2000;
+            const precioTiaraPequena = tiaraPequena * 2000;
+            const precioMariposas = mariposas * 500;
+            const precioLucesLed = lucesLed * 1000;
+            const precioMensajeCinta = mensajeCinta * 4000;
+            const precioPelucheMediano = pelucheMediano * 10000;
+            const precioPeluchePequeno = peluchePequeno * 5000;
+
+            // Total
+            const total = precioRosas + precioTiaraGrande + precioCoronaMediana + precioCoronaPequena + 
+                         precioTiaraPequena + precioMariposas + precioLucesLed + precioMensajeCinta + 
+                         precioPelucheMediano + precioPeluchePequeno;
+
+            // Formatear con separador de miles
+            const totalFormateado = total.toLocaleString('es-CL', {
+                style: 'currency',
+                currency: 'CLP',
+                minimumFractionDigits: 0
+            });
+
+            document.getElementById('totalPrecio').textContent = totalFormateado;
+        }
+
+
+        // Funciones del Modal de Confirmación
+        function mostrarConfirmacion() {
+            generarDetallePedido();
+            document.getElementById('confirmacionModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function cerrarConfirmacion() {
+            document.getElementById('confirmacionModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function generarDetallePedido() {
+            const cantidadRosas = parseInt(document.getElementById('cantidadRosas').value) || 0;
+            const tiaraGrande = parseInt(document.getElementById('tiaraGrande').value) || 0;
+            const coronaMediana = parseInt(document.getElementById('coronaMediana').value) || 0;
+            const coronaPequena = parseInt(document.getElementById('coronaPequena').value) || 0;
+            const tiaraPequena = parseInt(document.getElementById('tiaraPequena').value) || 0;
+            const mariposas = parseInt(document.getElementById('mariposas').value) || 0;
+            const lucesLed = parseInt(document.getElementById('lucesLed').value) || 0;
+            const mensajeCinta = parseInt(document.getElementById('mensajeCinta').value) || 0;
+            const pelucheMediano = parseInt(document.getElementById('pelucheMediano').value) || 0;
+            const peluchePequeno = parseInt(document.getElementById('peluchePequeno').value) || 0;
+
+            // Calcular precio de rosas
+            let precioRosas;
+            let precioUnitarioRosa;
+            if (cantidadRosas < 20) {
+                precioUnitarioRosa = 1200;
+                precioRosas = cantidadRosas * 1200;
+            } else {
+                precioUnitarioRosa = 1000;
+                precioRosas = cantidadRosas * 1000;
+            }
+
+            // Calcular precios de accesorios
+            const precioTiaraGrande = tiaraGrande * 10000;
+            const precioCoronaMediana = coronaMediana * 4000;
+            const precioCoronaPequena = coronaPequena * 2000;
+            const precioTiaraPequena = tiaraPequena * 2000;
+            const precioMariposas = mariposas * 500;
+            const precioLucesLed = lucesLed * 1000;
+            const precioMensajeCinta = mensajeCinta * 4000;
+            const precioPelucheMediano = pelucheMediano * 10000;
+            const precioPeluchePequeno = peluchePequeno * 5000;
+
+            // Total
+            const total = precioRosas + precioTiaraGrande + precioCoronaMediana + precioCoronaPequena + 
+                         precioTiaraPequena + precioMariposas + precioLucesLed + precioMensajeCinta + 
+                         precioPelucheMediano + precioPeluchePequeno;
+
+            // Generar HTML del detalle
+            let detalleHTML = '';
+
+            // Rosas
+            if (cantidadRosas > 0) {
+                detalleHTML += `
+                    <div class="detalle-item">
+                        <span class="detalle-label">🌹 ${cantidadRosas} Rosas Eternas (${formatoPrecio(precioUnitarioRosa)} c/u)</span>
+                        <span class="detalle-valor">${formatoPrecio(precioRosas)}</span>
+                    </div>
+                `;
+            }
+
+            // Accesorios
+            if (tiaraGrande > 0) {
+                detalleHTML += `
+                    <div class="detalle-item">
+                        <span class="detalle-label">👑 ${tiaraGrande} Tiara Grande</span>
+                        <span class="detalle-valor">${formatoPrecio(precioTiaraGrande)}</span>
+                    </div>
+                `;
+            }
+            if (coronaMediana > 0) {
+                detalleHTML += `
+                    <div class="detalle-item">
+                        <span class="detalle-label">👑 ${coronaMediana} Corona Mediana</span>
+                        <span class="detalle-valor">${formatoPrecio(precioCoronaMediana)}</span>
+                    </div>
+                `;
+            }
+            if (coronaPequena > 0) {
+                detalleHTML += `
+                    <div class="detalle-item">
+                        <span class="detalle-label">👑 ${coronaPequena} Corona Pequeña</span>
+                        <span class="detalle-valor">${formatoPrecio(precioCoronaPequena)}</span>
+                    </div>
+                `;
+            }
+            if (tiaraPequena > 0) {
+                detalleHTML += `
+                    <div class="detalle-item">
+                        <span class="detalle-label">👑 ${tiaraPequena} Tiara Pequeña</span>
+                        <span class="detalle-valor">${formatoPrecio(precioTiaraPequena)}</span>
+                    </div>
+                `;
+            }
+            if (mariposas > 0) {
+                detalleHTML += `
+                    <div class="detalle-item">
+                        <span class="detalle-label">🦋 ${mariposas} Mariposas</span>
+                        <span class="detalle-valor">${formatoPrecio(precioMariposas)}</span>
+                    </div>
+                `;
+            }
+            if (lucesLed > 0) {
+                detalleHTML += `
+                    <div class="detalle-item">
+                        <span class="detalle-label">💡 ${lucesLed} Luces LED</span>
+                        <span class="detalle-valor">${formatoPrecio(precioLucesLed)}</span>
+                    </div>
+                `;
+            }
+            if (mensajeCinta > 0) {
+                detalleHTML += `
+                    <div class="detalle-item">
+                        <span class="detalle-label">🎀 ${mensajeCinta} Mensaje en Cinta</span>
+                        <span class="detalle-valor">${formatoPrecio(precioMensajeCinta)}</span>
+                    </div>
+                `;
+            }
+            if (pelucheMediano > 0) {
+                detalleHTML += `
+                    <div class="detalle-item">
+                        <span class="detalle-label">🧸 ${pelucheMediano} Peluche Mediano</span>
+                        <span class="detalle-valor">${formatoPrecio(precioPelucheMediano)}</span>
+                    </div>
+                `;
+            }
+            if (peluchePequeno > 0) {
+                detalleHTML += `
+                    <div class="detalle-item">
+                        <span class="detalle-label">🧸 ${peluchePequeno} Peluche Pequeño</span>
+                        <span class="detalle-valor">${formatoPrecio(precioPeluchePequeno)}</span>
+                    </div>
+                `;
+            }
+
+            // Total
+            detalleHTML += `
+                <div class="detalle-total">
+                    <span class="detalle-label">TOTAL A PAGAR:</span>
+                    <span class="detalle-valor">${formatoPrecio(total)}</span>
+                </div>
+            `;
+
+            document.getElementById('detalleContenido').innerHTML = detalleHTML;
+        }
+
+        function formatoPrecio(precio) {
+            return precio.toLocaleString('es-CL', {
+                style: 'currency',
+                currency: 'CLP',
+                minimumFractionDigits: 0
+            });
+        }
+
+        // Cerrar confirmación con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                cerrarConfirmacion();
+            }
+        });
+
+        // Cerrar confirmación al hacer clic fuera
+        document.getElementById('confirmacionModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarConfirmacion();
+            }
+        });
+
+
+        // Cerrar personalizador al hacer clic fuera
+        document.getElementById('personalizadorModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePersonalizador();
+            }
+        });
+    </script>
+</body>
+</html>
